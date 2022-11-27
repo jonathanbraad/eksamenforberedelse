@@ -77,6 +77,10 @@ function apiFacade() {
         return fetchURL(URL+"/api/facts/dog")
     }
 
+    function GetRecipes(){
+        return fetchURL(URL+"/api/search/meals")
+    }
+
     return {
         makeOptions,
         setToken,
@@ -87,7 +91,8 @@ function apiFacade() {
         fetchData,
         getFacts,
         getCatFacts,
-        getDogFacts
+        getDogFacts,
+        GetRecipes
     }
 }
 
