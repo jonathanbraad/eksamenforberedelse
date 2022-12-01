@@ -3,6 +3,7 @@ import {Route, Routes} from "react-router-dom";
 import Header from "./components/Header.jsx";
 import Welcome from "./pages/Welcome.jsx"
 import AnimalFacts from "./pages/AnimalFacts"
+import FindMeals from './pages/FindMeals.jsx';
 
 function App(props) {
 
@@ -13,7 +14,7 @@ function App(props) {
             <Header setLoggedIn={setLoggedIn} loggedIn={loggedIn}/>
             <Routes>
                 <Route path="/" element={<Welcome/>}/>
-                <Route path="/AnimalFacts" element={<AnimalFacts/>}/>
+                <Route path="/FindMeals" element={<FindMeals/>}/>
                 <Route path="*" element={<h1>Page Not Found !!!!</h1>}/>
             </Routes>
         </>

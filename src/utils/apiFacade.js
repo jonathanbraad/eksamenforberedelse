@@ -1,4 +1,4 @@
-const URL = "http://localhost:8080/CA2_backend_war_exploded";
+const URL = "http://localhost:8080/Eksamensprojekt_war_exploded";
 
 function handleHttpErrors(res) {
     if (!res.ok) {
@@ -77,8 +77,48 @@ function apiFacade() {
         return fetchURL(URL+"/api/facts/dog")
     }
 
-    function GetRecipes(){
-        return fetchURL(URL+"/api/search/meals")
+    function getMeals(ingredient){
+        return fetchURL(URL+"/api/search/meals/"+ingredient)
+    }
+
+    function getRecipeByName(){
+        return fetchURL(URL+"/api/search/recipe/name")
+    }
+
+    function getRecipeById(){
+        return fetchURL(URL+"/api/search/recipe/id")
+    }
+
+    function getAllMealPlans(){
+        return fetchURL(URL+"/api/mealplan/getall")
+    }
+
+    function createMealPlan(){
+        return fetchURL(URL+"/api/mealplan/create")
+    }
+
+    function updateMealPlan(){
+        return fetchURL(URL+"/api/mealplan/update")
+    }
+
+    function deleteMealPlan(){
+        return fetchURL(URL+"/api/mealplan/delete")
+    }
+
+    function getAllMeals(){
+        return fetchURL(URL+"/api/meal/getall")
+    }
+
+    function createMeal(){
+        return fetchURL(URL+"/api/meal/create")
+    }
+
+    function updateMeal(){
+        return fetchURL(URL+"/api/meal/update")
+    }
+
+    function deleteMeal(){
+        return fetchURL(URL+"/api/meal/delete")
     }
 
     return {
@@ -92,7 +132,17 @@ function apiFacade() {
         getFacts,
         getCatFacts,
         getDogFacts,
-        GetRecipes
+        getMeals,
+        getRecipeByName,
+        getRecipeById,
+        getAllMealPlans,
+        createMealPlan,
+        updateMealPlan,
+        deleteMealPlan,
+        getAllMeals,
+        createMeal,
+        updateMeal,
+        deleteMeal
     }
 }
 
