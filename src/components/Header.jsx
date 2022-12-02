@@ -16,6 +16,7 @@ function Header({setErrorMsg, loggedIn, setLoggedIn}) {
             {!loggedIn ? (<Login setLoggedIn={setLoggedIn} loginCredentials={loginCredentials} setLoginCredentials={setLoginCredentials} setErrorMsg={setErrorMsg}  />) :
                 (<div>
                     <LoggedIn setLoggedIn={setLoggedIn} loginCredentials={loginCredentials}/>
+                    <NavLink to="/CreateMealPlan"> Create mealplan</NavLink>
                 </div>)}
                 </div>
         </nav>

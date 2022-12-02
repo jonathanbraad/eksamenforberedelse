@@ -81,12 +81,12 @@ function apiFacade() {
         return fetchURL(URL+"/api/search/meals/"+ingredient)
     }
 
-    function getRecipeByName(){
-        return fetchURL(URL+"/api/search/recipe/name")
+    function getRecipeByName(name){
+        return fetchURL(URL+"/api/search/recipe/name/"+name)
     }
 
-    function getRecipeById(){
-        return fetchURL(URL+"/api/search/recipe/id")
+    function getRecipeById(id){
+        return fetchURL(URL+"/api/search/recipe/id/"+id)
     }
 
     function getAllMealPlans(){
