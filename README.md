@@ -1,4 +1,4 @@
-# Eksamensprojekt_frontend 3 sem
+# Eksamensprojekt_frontend 3. sem
 
 To use the project follow the steps
 - Clone the backend project from git and follow the steps in that project
