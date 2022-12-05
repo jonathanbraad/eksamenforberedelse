@@ -93,8 +93,10 @@ function apiFacade() {
         return fetchURL(URL+"/api/mealplan/getall")
     }
 
-    function createMealPlan(){
-        return fetchURL(URL+"/api/mealplan/create")
+    const createMealPlan = (mealPlanName, mealId) => {
+        const options = makeOptions("POST", false, {mealPlanName: mealPlanName});
+        return fetch(URL + "/api/mealplan/create/" + mealId, options)
+            .then(handleHttpErrors)
     }
 
     function updateMealPlan(){
@@ -109,9 +111,11 @@ function apiFacade() {
         return fetchURL(URL+"/api/meal/getall")
     }
 
-    function createMeal(){
-        return fetchURL(URL+"/api/meal/create")
-    }
+    const createMeal = (recipeId, day, type) => {
+        const options = makeOptions("POST", false, {recipeId: recipeId, day: day, type: type});
+        return fetch(URL + "/api/meal/create", options)
+            .then(handleHttpErrors)    
+        }
 
     function updateMeal(){
         return fetchURL(URL+"/api/meal/update")
