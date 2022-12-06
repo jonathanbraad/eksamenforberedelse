@@ -9,14 +9,16 @@ import CreateMealPlan from "./pages/CreateMealPlan.jsx"
 function App(props) {
 
     const [loggedIn, setLoggedIn] = useState(false)
+    const init = {username: "", password: ""};
+    const [loginCredentials, setLoginCredentials] = useState(init);
 
     return (
         <>
-            <Header setLoggedIn={setLoggedIn} loggedIn={loggedIn}/>
+            <Header setLoggedIn={setLoggedIn} loggedIn={loggedIn} setLoginCredentials={setLoginCredentials} loginCredentials={loginCredentials}/>
             <Routes>
                 <Route path="/" element={<Welcome/>}/>
                 <Route path="/FindMeals" element={<FindMeals/>}/>
-                <Route path="/CreateMealPlan" element={<CreateMealPlan/>}/>
+                <Route path="/CreateMealPlan" element={<CreateMealPlan loginCredentials={loginCredentials}/>}/>
                 <Route path="*" element={<h1>Page Not Found !!!!</h1>}/>
             </Routes>
         </>

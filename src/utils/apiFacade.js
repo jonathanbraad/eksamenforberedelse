@@ -93,9 +93,9 @@ function apiFacade() {
         return fetchURL(URL+"/api/mealplan/getall")
     }
 
-    const createMealPlan = (mealPlanName, mealId) => {
+    const createMealPlan = (mealPlanName, mealId, username) => {
         const options = makeOptions("POST", false, {mealPlanName: mealPlanName});
-        return fetch(URL + "/api/mealplan/create/" + mealId, options)
+        return fetch(URL + "/api/mealplan/create/" + mealId + "/" + username, options)
             .then(handleHttpErrors)
     }
 
