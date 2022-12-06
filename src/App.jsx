@@ -5,6 +5,7 @@ import Welcome from "./pages/Welcome.jsx"
 import AnimalFacts from "./pages/AnimalFacts"
 import FindMeals from './pages/FindMeals.jsx';
 import CreateMealPlan from "./pages/CreateMealPlan.jsx"
+import ViewMeals from "./pages/ViewMeals";
 
 function App(props) {
 
@@ -16,6 +17,7 @@ function App(props) {
         <>
             <Header setLoggedIn={setLoggedIn} loggedIn={loggedIn} setLoginCredentials={setLoginCredentials} loginCredentials={loginCredentials}/>
             <Routes>
+                <Route path="/ViewMeals" element={<ViewMeals/>}/>
                 <Route path="/" element={<Welcome/>}/>
                 <Route path="/FindMeals" element={<FindMeals/>}/>
                 <Route path="/CreateMealPlan" element={<CreateMealPlan loginCredentials={loginCredentials}/>}/>
