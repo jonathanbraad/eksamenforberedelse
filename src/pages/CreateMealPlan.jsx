@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import facade from "../utils/apiFacade.js";
 
-function CreateMealPlan() {
+function CreateMealPlan({loginCredentials}) {
 
     const [recipeId, setRecipeId] = useState("")
     const [day, setDay] = useState("")
@@ -17,9 +17,8 @@ function CreateMealPlan() {
 
     const addMealPlan = (evt) => {
         evt.preventDefault();
-        facade.createMealPlan(mealPlanName, mealId);
+        facade.createMealPlan(mealPlanName, mealId, loginCredentials.username);
     }
-
 
     return (
         <div className="divplacement">
