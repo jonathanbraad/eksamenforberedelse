@@ -21,6 +21,10 @@ function MealPlan({loginCredentials}) {
     const [selectMealId, setSelectMealId] = useState("")
     const [selectMealPlanName, setSelectMealPlanName] = useState("")
 
+    useEffect(() => {
+        getMealPlans();
+    })
+
     const addMeal = (evt) => {
         evt.preventDefault();
         facade.createMeal(recipeId, day, type);
@@ -41,12 +45,15 @@ function MealPlan({loginCredentials}) {
         facade.updateMealPlan(mealPlanName, selectMealPlanId, mealId, loginCredentials.username)
     }
 
-    const getMealPlans = (evt) => {
-        evt.preventDefault();
+    const getMealPlans = () => (
         facade.getAllMealPlans(loginCredentials.username)
         .then((data) => {
             setMealPlans(data);
         })
+    )
+
+    const deleteMealPlan = (deleteId) => {
+        facade.deleteMealPlan(deleteId)
     }
 
     const mealPlansTable = mealPlans?.map((mealPlan) => (
@@ -55,6 +62,7 @@ function MealPlan({loginCredentials}) {
             <th>{mealPlan.mealPlanName}</th>
             <th><button onClick={() => setSelectMealPlanName(mealPlan.mealPlanName)}>Select</button></th>
             <th><button onClick={() => setSelectMealPlanId(mealPlan.id)}>Select</button></th>
+            <th><button onClick={() => deleteMealPlan(mealPlan.id)}>Delete</button></th>
         </tr>     
     ))
 
@@ -76,15 +84,11 @@ function MealPlan({loginCredentials}) {
         </tr>
     ))
 
-    const deleteMealPlan = (evt) => {
-        evt.preventDefault();
-        facade.deleteMealPlan(selectMealPlanId)
-    }
-
     const deleteMeal = (evt) => {
         evt.preventDefault();
         facade.deleteMeal(mealId)
     }
+
 
     return (
     <Container fluid="md">
@@ -129,7 +133,7 @@ function MealPlan({loginCredentials}) {
         <Row>
             <Col>
             <br></br>
-            <button onClick={getMealPlans}>View Mealplans</button>
+            <button onClick={getMealPlans}>Refresh Mealplans</button>
             <br></br>
             <Table striped bordered hover size="sm">
                 <thead>
@@ -137,7 +141,8 @@ function MealPlan({loginCredentials}) {
                         <th>Id: </th>
                         <th>Name: </th>
                         <th>Select mealplan to view: </th>
-                        <th>Select mealplan to update or delete: </th>
+                        <th>Select mealplan to update: </th>
+                        <th>Delete: </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -160,8 +165,6 @@ function MealPlan({loginCredentials}) {
                     {mealsTable}
                 </tbody>
             </Table>
-            <p>Selected mealplan: {selectMealPlanId}</p>
-            <button onClick={deleteMealPlan}>Delete mealplan<br></br></button>
             </Col>
         </Row>
     </Container>
