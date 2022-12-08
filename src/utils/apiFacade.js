@@ -89,8 +89,8 @@ function apiFacade() {
         return fetchURL(URL+"/api/search/recipe/id/"+id)
     }
 
-    function getAllMealPlans(){
-        return fetchURL(URL+"/api/mealplan/getall")
+    function getAllMealPlans(username){
+        return fetchURL(URL+"/api/mealplan/getall/"+username)
     }
 
     const createMealPlan = (mealPlanName, mealId, username) => {
@@ -99,16 +99,18 @@ function apiFacade() {
             .then(handleHttpErrors)
     }
 
-    function updateMealPlan(){
-        return fetchURL(URL+"/api/mealplan/update")
+    function updateMealPlan(mealPlanName, mealPlanId, mealId, username){
+        const options = makeOptions("PUT", false, {mealPlanName: mealPlanName});
+        return fetchURL(URL+"/api/mealplan/update/" + mealPlanId + "/" + mealId + "/" + username, options)
     }
 
-    function deleteMealPlan(){
-        return fetchURL(URL+"/api/mealplan/delete")
+    function deleteMealPlan(mealPlanId){
+        const options = makeOptions("DELETE", false);
+        return fetchURL(URL+"/api/mealplan/delete/"+mealPlanId, options)
     }
 
-    function getAllMeals(){
-        return fetchURL(URL+"/api/meal/getall")
+    function getAllMeals(mealPlanName){
+        return fetchURL(URL+"/api/meal/getall/"+mealPlanName)
     }
 
     const createMeal = (recipeId, day, type) => {
@@ -117,12 +119,14 @@ function apiFacade() {
             .then(handleHttpErrors)    
         }
 
-    function updateMeal(){
-        return fetchURL(URL+"/api/meal/update")
+    function updateMeal(recipeId, day, type, mealId){
+        const options = makeOptions("PUT", false, {recipeId: recipeId, day: day, type: type});
+        return fetchURL(URL+"/api/meal/update/" + mealId, options)
     }
 
-    function deleteMeal(){
-        return fetchURL(URL+"/api/meal/delete")
+    function deleteMeal(mealId){
+        const options = makeOptions("DELETE", false);
+        return fetchURL(URL+"/api/meal/delete/"+mealId, options)
     }
 
     return {
