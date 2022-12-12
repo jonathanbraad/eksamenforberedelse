@@ -60,8 +60,7 @@ function MealPlan({loginCredentials}) {
         <tr key={mealPlan.id}>
             <th>{mealPlan.id}</th>
             <th>{mealPlan.mealPlanName}</th>
-            <th><button onClick={() => setSelectMealPlanName(mealPlan.mealPlanName)}>Select</button></th>
-            <th><button onClick={() => setSelectMealPlanId(mealPlan.id)}>Select</button></th>
+            <th><button onClick={() => {setSelectMealPlanName(mealPlan.mealPlanName); setSelectMealPlanId(mealPlan.id)}}>Select</button></th>
             <th><button onClick={() => deleteMealPlan(mealPlan.id)}>Delete</button></th>
         </tr>     
     ))
@@ -95,19 +94,28 @@ function MealPlan({loginCredentials}) {
         <Row>
             <Col>
             <form>
+                <h3>Add Mealplan</h3>
+                <input onChange={evt => setMealPlanName(evt.target.value)} type="text" placeholder="Mealplan name"></input><br></br>
+                <input onChange={evt => setMealId(evt.target.value)} type="number" placeholder="Add meal"></input><br></br>
+                <button onClick={addMealPlan} type="submit">Add</button>
+            </form>
+            </Col>
+            <Col>
+            <form>
+                <h3>Update Mealplan</h3>
+                <p>Selected mealplan: {selectMealPlanId}</p>
+                <input onChange={evt => setMealPlanName(evt.target.value)} type="text" placeholder="Mealplan name"></input><br></br>
+                <input onChange={evt => setMealId(evt.target.value)} type="number" placeholder="Add meal"></input><br></br>
+                <button onClick={updateMealPlan} type="submit">Update</button>
+            </form>
+            </Col>
+            <Col>
+            <form>
                 <h3>Add Meal</h3>
                 <input onChange={evt => setRecipeId(evt.target.value)} type="number" placeholder="Recipe id"></input><br></br>
                 <input onChange={evt => setDay(evt.target.value)} type="text" placeholder="Day"></input><br></br>
                 <input onChange={evt => setType(evt.target.value)} type="text" placeholder="Type"></input><br></br>
                 <button onClick={addMeal} type="submit">Add</button>
-            </form>
-            </Col>
-            <Col>
-            <form>
-                <h3>Add Mealplan</h3>
-                <input onChange={evt => setMealPlanName(evt.target.value)} type="text" placeholder="Mealplan name"></input><br></br>
-                <input onChange={evt => setMealId(evt.target.value)} type="number" placeholder="Add meal"></input><br></br>
-                <button onClick={addMealPlan} type="submit">Add</button>
             </form>
             </Col>
             <Col>
@@ -118,15 +126,6 @@ function MealPlan({loginCredentials}) {
                 <input onChange={evt => setDay(evt.target.value)} type="text" placeholder="Day"></input><br></br>
                 <input onChange={evt => setType(evt.target.value)} type="text" placeholder="Type"></input><br></br>
                 <button onClick={updateMeal} type="submit">Update</button>
-            </form>
-            </Col>
-            <Col>
-            <form>
-                <h3>Update Mealplan</h3>
-                <p>Selected mealplan: {selectMealPlanId}</p>
-                <input onChange={evt => setMealPlanName(evt.target.value)} type="text" placeholder="Mealplan name"></input><br></br>
-                <input onChange={evt => setMealId(evt.target.value)} type="number" placeholder="Add meal"></input><br></br>
-                <button onClick={updateMealPlan} type="submit">Update</button>
             </form>
             </Col>
         </Row>
@@ -140,8 +139,7 @@ function MealPlan({loginCredentials}) {
                     <tr>
                         <th>Id: </th>
                         <th>Name: </th>
-                        <th>Select mealplan to view: </th>
-                        <th>Select mealplan to update: </th>
+                        <th>Select mealplan: </th>
                         <th>Delete: </th>
                     </tr>
                 </thead>
