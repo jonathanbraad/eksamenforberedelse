@@ -1,5 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import facade from "../utils/apiFacade.js";
+import Table from 'react-bootstrap/Table';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 function FindMeals() {
 
@@ -19,7 +23,7 @@ function FindMeals() {
     /*Specific recipe */
     const performSearchRecipe = (evt) => {
         evt.preventDefault();
-        getRecipe(searchRecipe.id);
+        getRecipe(searchRecipe);
     }
 
     /*List of meals with ingredient */
@@ -49,7 +53,11 @@ function FindMeals() {
     }   
 
     const mealList = recipes?.meals?.map((meal) => (
-                <li key={meal.idMeal}>Meal name: {meal.strMeal} Meal id: {meal.idMeal}</li>
+            <tr key={meal.idMeal}>
+                <th>Meal name: {meal.strMeal}</th>
+                <th>Meal id: {meal.idMeal}</th>
+                <th><button onClick={() => setSearchRecipe(meal.idMeal)}>Select id</button></th>
+            </tr>
             ))
 
 
@@ -68,25 +76,40 @@ function FindMeals() {
         ))
 
     return (
-        <div className="divplacement">
-            <form>
-                <h3>Meals</h3>
-                <input onChange={onChangeMeals} type="text" placeholder="Search by ingredient" id="ingredient"></input>
-                <button onClick={performSearchMeals} type="submit">Search</button>
-            </form>
-            <ul>
-                {mealList}
-            </ul>
-            <form>
-                <h3>Recipes by id</h3>
-                <input onChange={onChangeRecipe} type="text" placeholder="Search by id" id="id"></input>
-                <button onClick={performSearchRecipe} type="submit">Search</button>
-            </form>
-            <ul>
-                {recipeList}
-                {ingredientList}
-            </ul>
-        </div>
+        <Container fluid="md">
+            <Row>
+                <Col>
+                <form>
+                    <h3>Meals</h3>
+                    <input onChange={onChangeMeals} type="text" placeholder="Search by ingredient" id="ingredient"></input>
+                    <button onClick={performSearchMeals} type="submit">Search</button>
+                </form>
+                <Table striped bordered hover size="sm">
+                <thead>
+                    <tr>
+                        <th>Meal name: </th>
+                        <th>Meal id: </th>
+                        <th>Select recipe: </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {mealList}
+                </tbody>
+            </Table>
+                </Col>
+                <Col>
+                <form>
+                    <h3>Recipes by id</h3>
+                    <input onChange={onChangeRecipe} type="text" placeholder={searchRecipe} id="id"></input>
+                    <button onClick={performSearchRecipe} type="submit">Search</button>
+                </form>
+                <ul>
+                    {recipeList}
+                    {ingredientList}
+                </ul>
+                </Col>
+            </Row>
+        </Container>
     );
 }
 
