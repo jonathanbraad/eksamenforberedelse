@@ -1,4 +1,5 @@
 const URL = "http://localhost:8080/Eksamensprojekt_war_exploded";
+//const URL = "https://www.christoffermikkelsen.dk/tomcat/Eksamensprojekt";
 
 function handleHttpErrors(res) {
     if (!res.ok) {
@@ -91,17 +92,17 @@ function apiFacade() {
 
     function getAllMealPlans(username){
         return fetchURL(URL+"/api/mealplan/getall/"+username)
-    }
+    }   
 
-    const createMealPlan = (mealPlanName, mealId, username) => {
+    const createMealPlan = (mealPlanName, username) => {
         const options = makeOptions("POST", false, {mealPlanName: mealPlanName});
-        return fetch(URL + "/api/mealplan/create/" + mealId + "/" + username, options)
+        return fetch(URL + "/api/mealplan/create/" + username, options)
             .then(handleHttpErrors)
     }
 
-    function updateMealPlan(mealPlanName, mealPlanId, mealId, username){
+    function updateMealPlan(mealPlanName, mealPlanId, username){
         const options = makeOptions("PUT", false, {mealPlanName: mealPlanName});
-        return fetchURL(URL+"/api/mealplan/update/" + mealPlanId + "/" + mealId + "/" + username, options)
+        return fetchURL(URL+"/api/mealplan/update/" + mealPlanId + "/" + username, options)
     }
 
     function deleteMealPlan(mealPlanId){
@@ -113,15 +114,15 @@ function apiFacade() {
         return fetchURL(URL+"/api/meal/getall/"+mealPlanName)
     }
 
-    const createMeal = (recipeId, day, type) => {
+    const createMeal = (recipeId, day, type, mealPlanId) => {
         const options = makeOptions("POST", false, {recipeId: recipeId, day: day, type: type});
-        return fetch(URL + "/api/meal/create", options)
+        return fetch(URL + "/api/meal/create/" + mealPlanId, options)
             .then(handleHttpErrors)    
         }
 
-    function updateMeal(recipeId, day, type, mealId){
+    function updateMeal(recipeId, day, type, mealId, mealPlanId){
         const options = makeOptions("PUT", false, {recipeId: recipeId, day: day, type: type});
-        return fetchURL(URL+"/api/meal/update/" + mealId, options)
+        return fetchURL(URL+"/api/meal/update/" + mealId + "/" + mealPlanId, options)
     }
 
     function deleteMeal(mealId){

@@ -10,9 +10,9 @@ function MealPlan({loginCredentials}) {
     const [recipeId, setRecipeId] = useState("")
     const [day, setDay] = useState("")
     const [type, setType] = useState("")
+    const [mealPlanId, setMealPlanId] = useState("")
 
     const [mealPlanName, setMealPlanName] = useState("")
-    const [mealId, setMealId] = useState("")
 
     const [mealPlans, setMealPlans] = useState([])
     const [meals, setMeals] = useState([])
@@ -25,24 +25,38 @@ function MealPlan({loginCredentials}) {
         getMealPlans();
     })
 
+    const uniqueNames = [];
+
+    const uniqueMealplans = mealPlans.filter(mealPlan => {
+        const isDuplicate = uniqueNames.includes(mealPlan.mealPlanName);
+    
+        if (!isDuplicate) {
+          uniqueNames.push(mealPlan.mealPlanName);
+    
+          return true;
+        }
+    
+        return false;
+      });
+
     const addMeal = (evt) => {
         evt.preventDefault();
-        facade.createMeal(recipeId, day, type);
+        facade.createMeal(recipeId, day, type, mealPlanId);
     }
 
     const addMealPlan = (evt) => {
         evt.preventDefault();
-        facade.createMealPlan(mealPlanName, mealId, loginCredentials.username);
+        facade.createMealPlan(mealPlanName, loginCredentials.username);
     }
 
     const updateMeal = (evt) => {
         evt.preventDefault();
-        facade.updateMeal(recipeId, day, type, selectMealId)
+        facade.updateMeal(recipeId, day, type, selectMealId, mealPlanId)
     }
 
     const updateMealPlan = (evt) => {
         evt.preventDefault();
-        facade.updateMealPlan(mealPlanName, selectMealPlanId, mealId, loginCredentials.username)
+        facade.updateMealPlan(mealPlanName, selectMealPlanId, loginCredentials.username)
     }
 
     const getMealPlans = () => (
@@ -56,7 +70,7 @@ function MealPlan({loginCredentials}) {
         facade.deleteMealPlan(deleteId)
     }
 
-    const mealPlansTable = mealPlans?.map((mealPlan) => (
+    const mealPlansTable = uniqueMealplans?.map((mealPlan) => (
         <tr key={mealPlan.id}>
             <th>{mealPlan.id}</th>
             <th>{mealPlan.mealPlanName}</th>
@@ -80,11 +94,11 @@ function MealPlan({loginCredentials}) {
             <th>{meal.day}</th>
             <th>{meal.type}</th>
             <th><button onClick={() => setSelectMealId(meal.id)}>Select</button></th>
+            <th><button onClick={() => deleteMeal(meal.id)}>Delete</button></th>
         </tr>
     ))
 
-    const deleteMeal = (evt) => {
-        evt.preventDefault();
+    const deleteMeal = (mealId) => {
         facade.deleteMeal(mealId)
     }
 
@@ -96,7 +110,6 @@ function MealPlan({loginCredentials}) {
             <form>
                 <h3>Add Mealplan</h3>
                 <input onChange={evt => setMealPlanName(evt.target.value)} type="text" placeholder="Mealplan name"></input><br></br>
-                <input onChange={evt => setMealId(evt.target.value)} type="number" placeholder="Add meal"></input><br></br>
                 <button onClick={addMealPlan} type="submit">Add</button>
             </form>
             </Col>
@@ -105,7 +118,6 @@ function MealPlan({loginCredentials}) {
                 <h3>Update Mealplan</h3>
                 <p>Selected mealplan: {selectMealPlanId}</p>
                 <input onChange={evt => setMealPlanName(evt.target.value)} type="text" placeholder="Mealplan name"></input><br></br>
-                <input onChange={evt => setMealId(evt.target.value)} type="number" placeholder="Add meal"></input><br></br>
                 <button onClick={updateMealPlan} type="submit">Update</button>
             </form>
             </Col>
@@ -115,6 +127,7 @@ function MealPlan({loginCredentials}) {
                 <input onChange={evt => setRecipeId(evt.target.value)} type="number" placeholder="Recipe id"></input><br></br>
                 <input onChange={evt => setDay(evt.target.value)} type="text" placeholder="Day"></input><br></br>
                 <input onChange={evt => setType(evt.target.value)} type="text" placeholder="Type"></input><br></br>
+                <input onChange={evt => setMealPlanId(evt.target.value)} type="text" placeholder="Meal plan id"></input><br></br>
                 <button onClick={addMeal} type="submit">Add</button>
             </form>
             </Col>
@@ -125,6 +138,7 @@ function MealPlan({loginCredentials}) {
                 <input onChange={evt => setRecipeId(evt.target.value)} type="number" placeholder="Recipe id"></input><br></br>
                 <input onChange={evt => setDay(evt.target.value)} type="text" placeholder="Day"></input><br></br>
                 <input onChange={evt => setType(evt.target.value)} type="text" placeholder="Type"></input><br></br>
+                <input onChange={evt => setMealPlanId(evt.target.value)} type="text" placeholder="Meal plan id"></input><br></br>
                 <button onClick={updateMeal} type="submit">Update</button>
             </form>
             </Col>
@@ -157,6 +171,7 @@ function MealPlan({loginCredentials}) {
                         <th>Day: </th>
                         <th>Type: </th>
                         <th>Select meal to update: </th>
+                        <th>Delete: </th>
                     </tr>
                 </thead>
                 <tbody>
