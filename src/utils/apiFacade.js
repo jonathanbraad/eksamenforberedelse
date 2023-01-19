@@ -1,5 +1,4 @@
-const URL = "http://localhost:8080/Eksamensprojekt_war_exploded";
-//const URL = "https://www.christoffermikkelsen.dk/tomcat/Eksamensprojekt";
+const URL = "http://localhost:8081/Eksamensprojekt_war_exploded";
 
 function handleHttpErrors(res) {
     if (!res.ok) {
@@ -58,6 +57,14 @@ function apiFacade() {
             opts.body = JSON.stringify(body);
         }
         return opts;
+    }
+
+    function getRentalByTenant(id) {
+        return fetchURL(URL + "/api/tenant/viewRental/" + id)
+    }
+
+    function getHouseByRental(id) {
+        return fetchURL(URL + "/api/tenant/viewHouseFromRental/" + id)
     }
 
     function fetchURL(URL, data) {
@@ -131,6 +138,8 @@ function apiFacade() {
     }
 
     return {
+        getHouseByRental,
+        getRentalByTenant,
         makeOptions,
         setToken,
         getToken,

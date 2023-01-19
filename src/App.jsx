@@ -5,6 +5,7 @@ import Welcome from "./pages/Welcome.jsx"
 import FindMeals from './pages/FindMeals.jsx';
 import MealPlan from "./pages/MealPlan.jsx"
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ViewRentals from "./pages/ViewRentals.jsx";
 
 function App(props) {
 
@@ -19,6 +20,7 @@ function App(props) {
                 <Route path="/" element={<Welcome/>}/>
                 <Route path="/FindMeals" element={<FindMeals/>}/>
                 <Route path="/MealPlan" element={<MealPlan loginCredentials={loginCredentials}/>}/>
+                <Route path="/ViewRentals" element={<ViewRentals/>}/>
                 <Route path="*" element={<h1>Page Not Found !!!!</h1>}/>
             </Routes>
         </>
