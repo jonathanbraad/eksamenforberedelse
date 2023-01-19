@@ -12,12 +12,6 @@ function Header({setErrorMsg, loggedIn, setLoggedIn, loginCredentials, setLoginC
             <div className="divplacement">
                 <NavLink to="/ViewRentals">ViewRentals</NavLink>
             <NavLink to="/"> Welcome</NavLink>
-            <NavLink to="/FindMeals"> Find meals</NavLink>
-            {!loggedIn ? (<Login setLoggedIn={setLoggedIn} loginCredentials={loginCredentials} setLoginCredentials={setLoginCredentials} setErrorMsg={setErrorMsg}  />) :
-                (<div>
-                    <LoggedIn setLoggedIn={setLoggedIn} loginCredentials={loginCredentials}/>
-                    <NavLink to="/MealPlan">Mealplan</NavLink>
-                </div>)}
                 </div>
         </nav>
     );
